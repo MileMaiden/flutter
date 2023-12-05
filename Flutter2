@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+
+class CalculadorState extends StatefulWidget {
+  const CalculadorState({super.key});
+
+  @override
+  State<CalculadorState> createState() => CalculadorStateState();
+}
+
+class CalculadorStateState extends State<CalculadorState> {
+  TextEditingController _controllerValue1 = TextEditingController();
+  TextEditingController _controllerValue2 = TextEditingController();
+  double _resultado = 0.0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Calculadora"),
+        backgroundColor: Colors.black,
+      ),
+      body: Center(
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: _controllerValue1,
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      InputDecoration(labelText: 'digite o primeiro valor'),
+                ),
+                TextField(
+                  controller: _controllerValue2,
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      InputDecoration(labelText: 'digite o segundo valor'),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    double valor1 =
+                        double.tryParse(_controllerValue1.text) ?? 0.0;
+                    double valor2 =
+                        double.tryParse(_controllerValue2.text) ?? 0.0;
+                    double soma = valor1 + valor2;
+
+                    setState(() {
+                      _resultado = soma;
+                    });
+                  },
+                  child: Text('calcular'),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text('resultado:$_resultado')
+              ],
+            ),
+          ),
+          width: 300,
+          height: 500,
+          decoration: BoxDecoration(
+              color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+        ),
+      ),
+    );
+  }
+}
